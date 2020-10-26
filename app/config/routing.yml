@@ -1,0 +1,60 @@
+app_reclamation:
+    resource: "@ContactBundle/Controller/ReclamationController.php"
+    type:     annotation
+
+app_note:
+    resource: "@ContactBundle/Controller/NoteController.php"
+    type:     annotation
+
+app_message:
+    resource: "@ContactBundle/Controller/MessageController.php"
+    type:     annotation
+
+contact:
+    resource: "@ContactBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app_postulation:
+    resource: "@ProjetBundle/Controller/PostulationController.php"
+    type:     annotation
+
+app_projet:
+    resource: "@ProjetBundle/Controller/projetController.php"
+    type:     annotation
+
+projet:
+    resource: "@ProjetBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app_categorie:
+    resource: "@ProjetBundle/Controller/CategorieController.php"
+    type:     annotation
+
+app_client:
+    resource: "@UserBundle/Controller/ClientController.php"
+    type:     annotation
+
+app_freelancer:
+    resource: "@UserBundle/Controller/FreelancerController.php"
+    type:     annotation
+
+app_admin:
+    resource: "@UserBundle/Controller/AdminController.php"
+    type:     annotation
+
+user:
+    resource: "@UserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+# app/config/routing.yml
+homepage:
+    path:   /
+    defaults:  { _controller: AppBundle:Default:index }

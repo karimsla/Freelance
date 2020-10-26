@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>Titane</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    {% block stylesheets %}
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/colors/blue.css') }}">
+    {% endblock %}
+
+</head>
+<body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header Container
+    ================================================== -->
+    <header id="header-container" class="fullwidth">
+
+        <!-- Header -->
+        <div id="header">
+            <div class="container">
+
+                <!-- Left Side Content -->
+                <div class="left-side">
+
+                    <!-- Logo -->
+                    <div id="logo">
+                        <a href="/"><img src="{{ asset('images/titane.png') }}" alt=""></a>
+                    </div>
+
+                    <!-- Main Navigation -->
+                    <nav id="navigation">
+                        <ul id="responqqsive">
+
+                            <li><a href="{{ path('homepage') }}" >Acceuil</a>
+
+                            </li>
+
+                            <li><a href="{{path("search_project")}}">Chercher Du Travail</a>
+
+                            </li>
+
+                            <li><a href="{{path("freelancer_index")}}">Pour les employeurs</a>
+
+                            </li>
+
+
+
+                        </ul>
+                    </nav>
+                    <div class="clearfix"></div>
+                    <!-- Main Navigation / End -->
+
+                </div>
+                <!-- Left Side Content / End -->
+
+
+                <!-- Right Side Content / End -->
+                <div class="right-side">
+
+
+                        <!-- User Menu -->
+                        <div class="header-widget">
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <!-- Messages -->
+                            <div class="header-notifications user-menu">
+                                <div class="header-notifications-trigger">
+                                    <a href="#"><div class="user-avatar status-online">
+                                            {% if is_granted('ROLE_FREELANCER') %}
+                                                <img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt="">
+                                            {% elseif is_granted('ROLE_CLIENT') %}
+                                                <img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt="">
+
+                                            {% else %}
+                                                 <img src="{{ asset('images/user-avatar-small-01.jpg') }} " alt="">
+                                            {% endif %}
+
+                                        </div></a>
+                                </div>
+
+                                <!-- Dropdown -->
+                                <div class="header-notifications-dropdown">
+
+                                    <!-- User Status -->
+                                    <div class="user-status">
+
+                                        <!-- User Name / Avatar -->
+                                        <div class="user-details">
+                                            {% if is_granted('ROLE_FREELANCER') %}
+                                            <div class="user-avatar status-online">  <img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></div>
+                                            {% elseif is_granted('ROLE_CLIENT') %}
+                                                <div class="user-avatar status-online"> <img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></div>
+
+                                            {% else %}
+                                                <img src="{{ asset('images/user-avatar-small-01.jpg') }} " alt="">
+                                            {% endif %}
+                                            <div class="user-name">
+                                                {{app.user.username}} <span>
+                                                    {% if is_granted('ROLE_FREELANCER') %}
+                                                        Freelancer
+                                                    {% elseif is_granted('ROLE_CLIENT') %}
+                                                        Prestataire
+                                                    {% else %}
+                                                        Administrateur
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <!-- User Status Switcher -->
+
+
+                                    <ul class="user-menu-small-nav">
+                                        {% if is_granted("ROLE_FREELANCER") %}
+                                        <li><a href="{{ path("update_profile",{'id':app.user.id})  }}">
+                                                <i class="icon-material-outline-settings"></i> Profile</a></li>
+
+                                        {% elseif is_granted("ROLE_CLIENT") %}
+                                            <a  class="button ripple-effect" href="{{ path('projet_new') }}">Ajouter un projet</a>
+                                            <li><a href="{{ path("update_profilec",{'id':app.user.id})  }}"><i class="icon-material-outline-settings"></i> Profile</a></li>
+                                        {% else %}
+
+                                        <li><a href=" "><i class="icon-material-outline-settings"></i> Settings</a></li>
+
+                                        {% endif %}
+                                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-material-outline-power-settings-new"></i> Se déconnecter</a></li>
+
+
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- User Menu / End -->
+                    {% else %}
+                        <div class="header-widget">
+                            <a href="#sign-in-dialog" class="popup-with-zoom-anim log-in-button"><i class="icon-feather-log-in"></i> <span>S'identifier / S'enregistrer</span></a>
+                        </div>
+                    {% endif %}
+
+
+
+                    <!-- Mobile Navigation Button -->
+                    <span class="mmenu-trigger">
+					<button class="hamburger hamburger--collapse" type="button">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</button>
+				</span>
+
+                </div>
+                <!-- Right Side Content / End -->
+
+            </div>
+            </div></div>
+    </header>
+        <!-- Header / End -->
+
+
+    <div class="clearfix"></div>
+    <!-- Header Container / End -->
+    {% block sidebar %}
+
+    {% endblock %}
+    {% block body %}{% endblock %}</div>
+<!-- Footer
+================================================== -->
+
+<div id="footer">
+    {% block footer %}
+
+
+    <!-- Footer Top Section -->
+    <div class="footer-top-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+
+                    <!-- Footer Rows Container -->
+                    <div class="footer-rows-container">
+
+                        <!-- Left Side -->
+                        <div class="footer-rows-left">
+                            <div class="footer-row">
+                                <div class="footer-row-inner footer-logo">
+                                    <img src="{{ asset('images/titane.png') }}" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side -->
+                        <div class="footer-rows-right">
+
+                            <!-- Social Icons -->
+                            <div class="footer-row">
+                                <div class="footer-row-inner">
+                                    <ul class="footer-social-links">
+                                        <li>
+                                            <a href="#" title="Facebook" data-tippy-placement="bottom" data-tippy-theme="light">
+                                                <i class="icon-brand-facebook-f"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Twitter" data-tippy-placement="bottom" data-tippy-theme="light">
+                                                <i class="icon-brand-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Google Plus" data-tippy-placement="bottom" data-tippy-theme="light">
+                                                <i class="icon-brand-google-plus-g"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="LinkedIn" data-tippy-placement="bottom" data-tippy-theme="light">
+                                                <i class="icon-brand-linkedin-in"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <!-- Footer Rows Container / End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer Top Section / End -->
+
+    <!-- Footer Middle Section -->
+        <div class="footer-middle-section">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Links -->
+                    <div class="col-xl-2 col-lg-2 col-md-3">
+                        <div class="footer-links">
+                            <h3>Pour freelancer</h3>
+                            <ul>
+                                <li><a href="#"><span>Chercher Projet</span></a></li>
+                                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and is_granted('ROLE_FREELANCER') %}
+                                    <li>  <a  href="{{ path('myposts') }}">Mes postulations</a></li>
+                                {% else %}
+                                    <li>  <a  href="" onclick='return false;'>Mes postulations</a></li>
+                                {% endif %}
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Links -->
+                    <div class="col-xl-2 col-lg-2 col-md-3">
+                        <div class="footer-links">
+                            <h3>Pour les clients</h3>
+                            <ul>
+                                <li><a href="#"><span>Chercher freelancer</span></a></li>
+                                <li><a href="{{ path("search_project") }}"><span>Liste des projet</span></a></li>
+                                {% if is_granted('IS_AUTHENTICATED_REMEMBERED')  and is_granted('ROLE_CLIENT') %}
+                                    <li>  <a  href="{{ path('projet_new') }}">Ajouter projet</a></li>
+                                {% else %}
+
+                                    <li><a href="#" onclick='return false;'><span>Ajouter projet</span></a></li>
+                                {% endif %}
+
+                                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') and is_granted('ROLE_CLIENT') %}
+                                    <li>  <a  href="{{ path('projet_index') }}">Mes projets</a></li>
+                                {% else %}
+
+                                    <li><a href="#" onclick='return false;'><span>Mes projets</span></a></li>
+                                {% endif %}
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Links -->
+                    <div class="col-xl-2 col-lg-2 col-md-3">
+                        <div class="footer-links">
+                            <h3>Liens utiles</h3>
+                            <ul>
+                                <li><a href="#"><span>Contact</span></a></li>
+                                <li><a href="#"><span>Privacy Policy</span></a></li>
+                                <li><a href="#"><span>Terms of Use</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Links -->
+                    <div class="col-xl-2 col-lg-2 col-md-3">
+                        <div class="footer-links">
+                            <h3>Compte</h3>
+                            <ul>
+                                <li><a href="{{ path('user_login') }}"><span>Se connecter</span></a></li>
+                                <li><a href="{{ path('signup') }}"><span>S'inscrire</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- Footer Middle Section / End -->
+
+    <!-- Footer Copyrights -->
+    <div class="footer-bottom-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    ©2020 <strong>TITAN</strong>. All Rights Reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer Copyrights / End -->
+    {% endblock %}
+</div>
+<!-- Footer / End -->
+
+
+<!-- Wrapper / End -->
+
+<!-- Sign In Popup
+================================================== -->
+<div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+    <!--Tabs -->
+    <div class="sign-in-form">
+
+        <ul class="popup-tabs-nav">
+            <li><a href="#login">S'identifier </a></li>
+            <li><a href="#register">S'enregistrer</a></li>
+        </ul>
+
+        <div class="popup-tabs-container">
+
+            <!-- Login -->
+            <div class="popup-tab-content" id="login">
+
+                <!-- Welcome Text -->
+                <div class="welcome-text">
+                    <h3>Nous sommes ravis de vous revoir!</h3>
+                    <span>Vous n'avez pas de compte? <a href="#" class="register-tab">Inscription!</a></span>
+                </div>
+
+                <!-- Form -->
+                <form method="post" action="{{ path('user_login') }}" id="login-form">
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-baseline-mail-outline"></i>
+                        <input type="text" class="input-text with-border" name="username"
+                               id="emailaddress" placeholder="Nom d'utilisateur" required/>
+                    </div>
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-outline-lock"></i>
+                        <input type="password" class="input-text with-border" name="password" id="password"
+                               placeholder="Mot de passe" required/>
+                    </div>
+                    <a href="#" class="forgot-password">Mot de passe oblier?</a>
+                </form>
+
+                <!-- Button -->
+                <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="login-form">Se connecter <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+                <!-- Social Login -->
+
+
+            </div>
+
+            <!-- Register -->
+            <div class="popup-tab-content" id="register">
+
+                <!-- Welcome Text -->
+                <div class="welcome-text">
+                    <h3>Crée votre compte!</h3>
+                </div>
+
+
+
+                <!-- Form -->
+                <form method="post" id="register-account-form" action="{{ path('signup') }}">
+
+                    <!-- Account Type -->
+                    <div class="account-type">
+                        <div>
+                            <input type="radio" name="account-type-radio" id="freelancer-radio" class="account-type-radio" value="freelancer" checked/>
+                            <label for="freelancer-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Freelancer</label>
+                        </div>
+
+                        <div>
+                            <input type="radio" name="account-type-radio" id="employer-radio" class="account-type-radio" value="client"/>
+                            <label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Employer</label>
+                        </div>
+                    </div>
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-feather-user"></i>
+                        <input type="text" class="input-text with-border" name="nom" id="emailaddress-register" placeholder="Nom" required/>
+                    </div>
+                    <div class="input-with-icon-left">
+                        <i class="icon-feather-user"></i>
+                        <input type="text" class="input-text with-border" name="prenom" id="emailaddress-register" placeholder="Prenom" required/>
+                    </div>
+                    <div class="input-with-icon-left">
+                        <i class="icon-line-awesome-mobile-phone"></i>
+                        <input type="text" class="input-text with-border" name="numtel" id="name-register" placeholder="Numéro Telephone" required/>
+                    </div>
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-outline-date-range"></i>
+                        <input type="date" class="input-text with-border" name="date" id="lastname-register" placeholder="Date" required/>
+                    </div>
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-baseline-mail-outline"></i>
+                        <input type="text" class="input-text with-border" name="mail" id="emailaddress-register" placeholder="Email Address" required/>
+                    </div>
+                    <div class="input-with-icon-left">
+                        <i class="icon-line-awesome-user"></i>
+                        <input type="text" class="input-text with-border" name="username" id="username-register" placeholder="Username" required/>
+                    </div>
+
+                    <div class="input-with-icon-left" title="Should be at least 8 characters long" data-tippy-placement="bottom">
+                        <i class="icon-material-outline-lock"></i>
+                        <input type="password" class="input-text with-border" name="password" id="password-register" placeholder="Mot de passe" required/>
+                    </div>
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-outline-lock"></i>
+                        <input type="password" class="input-text with-border" name="passtwo" id="password-repeat-register" placeholder="Repeter mot de passe" required/>
+                    </div>
+                    {% if msg is defined %}
+                        <span>{{ msg }}</span>
+                    {% endif %}
+                    <!-- Button -->
+
+                    <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" >S'inscrire </button>
+
+                </form>
+
+
+                <!-- Social Login -->
+                <div class="social-login-separator"><span></span></div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Sign In Popup / End -->
+{% block javascripts %}
+<!-- Scripts
+================================================== -->
+<script src="{{ asset("js/jquery-3.3.1.min.js") }}"></script>
+<script src="{{ asset("js/jquery-migrate-3.0.0.min.js") }}"></script>
+<script src="{{ asset("js/mmenu.min.js") }}"></script>
+<script src="{{ asset("js/tippy.all.min.js") }}"></script>
+<script src="{{ asset("js/simplebar.min.js") }}"></script>
+<script src="{{ asset("js/bootstrap-slider.min.js") }}"></script>
+<script src="{{ asset("js/bootstrap-select.min.js") }}"></script>
+<script src="{{ asset("js/snackbar.js") }}"></script>
+<script src="{{ asset("js/clipboard.min.js") }}"></script>
+<script src="{{ asset("js/counterup.min.js") }}"></script>
+<script src="{{ asset("js/magnific-popup.min.js") }}"></script>
+<script src="{{ asset("js/slick.min.js") }}"></script>
+<script src="{{ asset("js/custom.js") }}"></script>
+
+<!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
+<script>
+    // Snackbar for user status switcher
+    $('#snackbar-user-status label').click(function() {
+        Snackbar.show({
+            text: 'Your status has been changed!',
+            pos: 'bottom-center',
+            showAction: false,
+            actionText: "Dismiss",
+            duration: 3000,
+            textColor: '#fff',
+            backgroundColor: '#383838'
+        });
+    });
+</script>
+
+
+<!-- Google Autocomplete -->
+<script>
+    function initAutocomplete() {
+        var options = {
+            types: ['(cities)'],
+            // componentRestrictions: {country: "us"}
+        };
+
+        var input = document.getElementById('autocomplete-input');
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+    }
+
+    // Autocomplete adjustment for homepage
+    if ($('.intro-banner-search-form')[0]) {
+        setTimeout(function(){
+            $(".pac-container").prependTo(".intro-search-field.with-autocomplete");
+        }, 300);
+    }
+
+</script>
+
+
+{% endblock %}
+</body>
+</html>

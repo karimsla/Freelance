@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="dashboard-container">
+        {{ include('Csidebar.html.twig') }}
+<div class="dashboard-content-container" data-simplebar>
+    <div class="dashboard-content-inner" >
+
+        <!-- Dashboard Headline -->
+        <div class="dashboard-headline">
+
+    <h3>Creation Projet </h3><br>
+
+            <nav id="breadcrumbs" class="dark">
+                <ul>
+                    <li><a href="/">Acceuil</a></li>
+                    <li><a href="#">Projet</a></li>
+                    <li>Creation Projet</li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row">
+
+            {{ form_start(form) }}
+            <!-- Dashboard Box -->
+            <div class="col-xl-12">
+                <div class="dashboard-box margin-top-0">
+
+                    <!-- Headline -->
+                    <div class="headline">
+                        <h3><i class="icon-feather-folder-plus"></i> Poster un projet</h3>
+                    </div>
+
+                    <div class="content with-padding padding-bottom-10">
+                        <div class="row">
+
+                            <div class="col-xl-4">
+                                <div class="submit-field">
+                                    <h5>Titre</h5>
+                                    {{ form_widget(form.titre) }}
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4">
+                                <div class="submit-field">
+                                    <h5>Categorie</h5>
+
+                                    {{ form_widget(form.Categorie,{ 'attr': {'title': 'Sélectionner une catégorie','class':'selectpicker with-border'} }) }}
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4">
+                                <div class="submit-field">
+                                    <h5>Budget</h5>
+
+                                    {{ form_widget(form.budget) }}
+
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12">
+                                <div class="submit-field">
+                                    <h5>Location</h5>
+                                    <div class="input-with-icon">
+                                        <div id="autocomplete-container">
+                                            {{ form_widget(form.description,{ 'attr': {'placeholder': 'description de projet','class':"with-border"} }) }}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-12">
+                <button type="submit" class="button ripple-effect big margin-top-30"><i class="icon-feather-plus"></i> Créer projet</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+
+
+    </div>
+    </div>
+    </div>
+{% endblock %}

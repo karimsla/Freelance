@@ -1,0 +1,50 @@
+
+{% block sidebar %}
+<!-- Dashboard Sidebar
+    ================================================== -->
+<div class="dashboard-sidebar">
+    <div class="dashboard-sidebar-inner" data-simplebar>
+        <div class="dashboard-nav-container">
+
+
+            <!-- Navigation -->
+            <div class="dashboard-nav">
+                <div class="dashboard-nav-inner">
+
+                    <ul data-submenu-title="Debut">
+                        <li><a href="{{path("messlist_noid")}}"><i class="icon-material-outline-question-answer"></i> Messages </a></li>
+                        <li><a href="#"><i class="icon-line-awesome-warning"></i> Reclamation</a>
+                            <ul>
+
+                                <li><a href="{{ path("myreclams") }}">Mes Reclamation  <span class="nav-tag">{{ app.user.reclamations|length }}</span></a></li>
+                                <li><a href="{{path("reclamation_new")}}">Envoyer une réclamation</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul data-submenu-title="Organiser et Gérer">
+                        <li><a href="#"><i class="icon-material-outline-business-center"></i> Travaille</a>
+                            <ul>
+                                <li><a href="{{ path('projet_index') }}">Mes Projet <span class="nav-tag">{{ app.user.projects|length }}</span></a></li>
+
+                               <li><a href="{{ path('projet_new') }}">Poster un projet</a></li>
+                                <li><a href="{{ path('paiement') }}">Mes paiement effectués</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+
+                    <ul data-submenu-title="Compte">
+                        <li class="active"><a href="{{path('update_profilec',{'id':app.user.id}) }}"><i class="icon-material-outline-settings"></i>Paramètres</a></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-material-outline-power-settings-new"></i>Se déconnecter</a></li>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- Navigation / End -->
+
+        </div>
+    </div>
+</div>
+<!-- Dashboard Sidebar / End -->
+{% endblock %}

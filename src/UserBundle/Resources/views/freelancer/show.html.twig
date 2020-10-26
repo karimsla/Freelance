@@ -1,0 +1,182 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <!-- Titlebar
+ ================================================== -->
+    <div class="single-page-header freelancer-header" data-background-image="{{ asset('images/67125bf1d2a954b04414afd87684a687.jpg') }}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-page-header-inner">
+                        <div class="left-side">
+
+                            <div class="header-image freelancer-avatar">
+                                <img src="{{ freelancer.image ? asset(vich_uploader_asset(freelancer,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }}" alt="">
+                            </div>
+
+                            <div class="header-details">
+                                <h3>{{freelancer.prenom}} {{ freelancer.nom }}<span>{{freelancer.domaine}}</span></h3>
+                                <ul>
+                                    <li>{% set sumratings = 0 %}
+                                        {% set total =  freelancer.notes|length %}
+                                        {% for rating in freelancer.notes %}
+                                            {% set sumratings = sumratings + rating.note %}
+                                        {% endfor %}
+                                        {% if total==0 %}
+                                            {% set total=1 %}
+                                        {% endif %}
+
+                                        <div class="star-rating" data-rating="{{  sumratings / total }}"></div>
+                                         </li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Page Content
+    ================================================== -->
+    <div class="container">
+        <div class="row">
+
+            <!-- Content -->
+            <div class="col-xl-8 col-lg-8 content-right-offset">
+
+                <!-- Page Content -->
+                <div class="single-page-section">
+                    <h3 class="margin-bottom-25">A propos de moi</h3>
+                    <p>{{ freelancer.aboutme }}</p>
+
+                </div>
+                {% if freelancer.notes is not empty %}
+                <!-- Boxed List -->
+                <div class="boxed-list margin-bottom-60">
+                    <div class="boxed-list-headline">
+                        <h3><i class="icon-material-outline-thumb-up"></i> Commentaires des clients</h3>
+                    </div>
+                    <ul class="boxed-list-ul">
+                        {% for note in freelancer.notes %}
+                        <li>
+                            <div class="boxed-list-item">
+                                <!-- Content -->
+                                <div class="item-content">
+                                    <h4>{{ note.client.nom ~" "~note.client.prenom }} <span>Client</span></h4>
+                                    <div class="item-details margin-top-10">
+                                        <div class="star-rating" data-rating="{{note.note}}"></div>
+                                        <div class="detail-item"><i class="icon-material-outline-date-range"></i> {{note.datenote|date("d F y")}}</div>
+                                    </div>
+                                    <div class="item-description">
+                                        <p>{{note.commentaire}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+
+                    </ul>
+
+
+
+
+                </div>
+                <!-- Boxed List / End -->
+
+                {% endif %}
+
+
+            </div>
+
+
+            <!-- Sidebar -->
+            <div class="col-xl-4 col-lg-4">
+                <div class="sidebar-container">
+
+                    <!-- Profile Overview -->
+                    <div class="profile-overview">
+                        <div class="overview-item"><span>Tel </span><strong>{{ freelancer.numtel }}</strong></div>
+                        <div class="overview-item"><span>Domaine</span><strong>{{ freelancer.domaine}}</strong></div>
+
+                    </div>
+
+                    <!-- Freelancer Indicators -->
+                    {% if is_granted("ROLE_CLIENT") %}
+                    <a href="#small-dialog-2" data-id="{{ freelancer.id }}" data-name="{{ freelancer.nom ~" "~ freelancer.prenom }}" class="apply-now-button msgmodal popup-with-zoom-anim margin-bottom-50"> Envoyer un message</a>
+                    {% endif %}
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Send Direct Message Popup
+ ================================================== -->
+    <div id="small-dialog-2" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+        <!--Tabs -->
+        <div class="sign-in-form">
+
+            <ul class="popup-tabs-nav">
+                <li><a href="#tab2">Send Message</a></li>
+            </ul>
+
+            <div class="popup-tabs-container">
+
+                <!-- Tab -->
+                <div class="popup-tab-content" id="tab2">
+
+                    <!-- Welcome Text -->
+                    <div class="welcome-text" id="welcom">
+                        <h3>Envoyez un Message à <span id="username" ></span></h3>
+                    </div>
+
+                    <!-- Form -->
+                    <form method="post" action="{{ path('sendmsg') }}" id="send-pm">
+                        <input name="freelancershow" value="freelancershow" type="hidden">
+                        <input name="to" id="userid" type="hidden" value="">
+                        <input name="projid" id="projid" type="hidden" value="">
+                        <textarea   cols="10" name="mstxt" placeholder="Message" class="with-border" required></textarea>
+                    </form>
+
+                    <!-- Button -->
+                    <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="send-pm">Send <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Send Direct Message Popup / End -->
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+    <script>
+        $(".msgmodal").on("click" , function () {
+            console.log("no prob");
+
+
+            var id = $(this).data('id');
+            console.log(id);
+            var name=$(this).data('name');
+            console.log(name)
+
+            document.getElementById("userid").value = id;
+
+            document.getElementById("username").textContent = name;
+            // As pointed out in comments,
+            // it is unnecessary to have to manually call the modal.
+            // $('#addBookDialog').modal('show');
+        });
+    </script>
+{% endblock %}
+{% block footer %}
+
+{% endblock %}

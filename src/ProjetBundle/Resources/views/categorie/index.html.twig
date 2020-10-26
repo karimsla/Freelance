@@ -1,0 +1,76 @@
+{% extends 'back.html.twig' %}
+
+{% block body %}
+
+<div class="dashboard-container">
+
+    <!-- Dashboard Sidebar
+    ================================================== -->
+
+    {{ include('Asidebar.html.twig') }}
+
+    <div class="dashboard-content-container" data-simplebar>
+        <div class="dashboard-content-inner" >
+            <!-- Dashboard Headline -->
+            <div class="dashboard-headline">
+                <h3>Gérer les travaux</h3>
+
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs" class="dark">
+                    <ul>
+                        <li><a href="#">Acceuil</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li>Gérer les travaux</li>
+                    </ul>
+                </nav>
+            </div>
+    <div class="row">
+
+        <br>
+        <div class="col-xl-6 col-md-6">
+
+            <div class="section-headline margin-bottom-30">
+
+                <table class="basic-table">
+                    <thead>
+                    <tr>
+                        <th>Libelle</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for categorie in categories %}
+                        <tr>
+                            <td>{{ categorie.libelle }}</td>
+                            <td>
+                                <ul>
+
+                                    <li style="list-style: none">
+                                        <a href="{{ path('categorie_edit', { 'id': categorie.id }) }}"  ><i class="icon-feather-edit"></i></a>
+                                        <a href="{{ path('categorie_delete', { 'id': categorie.id }) }}"  ><i class="icon-material-outline-delete"></i></a>
+
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <div class="pull-right margin-top-5 col-xl-6 col-md-6">
+            <a class="button ripple-effect" href="{{ path('categorie_new') }}">Create a new categorie</a>
+
+        </div>
+
+
+    </div>
+
+        </div></div></div>
+{% endblock %}
+
+

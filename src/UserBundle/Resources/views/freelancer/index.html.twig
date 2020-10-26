@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="clearfix"></div>
+    <!-- Header Container / End -->
+
+    <!-- Spacer -->
+    <div class="margin-top-90"></div>
+    <!-- Spacer / End-->
+
+    <div class="container">
+    <div class="row">
+        <div class="col-xl-3 col-lg-4">
+            <div class="sidebar-container">
+
+
+
+                <!-- Category -->
+
+
+                    <div class="sidebar-widget">
+                        <h3>Mot clé</h3>
+                        <div class="keywords-container">
+                            <div class="keyword-input-container">
+                                <form action="{{ path('freelancer_index') }}" method="post">
+                                <input type="text" name="kw" class="with-border" placeholder="Mot clé"/>
+                              <br/>
+                                <button type="submit" class="button button-sliding-icon ripple-effect">Rechercher</button>
+                                </form>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+<div class="col-xl-9 col-lg-8 content-left-offset">
+    <h3 class="page-title">Freelancers list</h3>
+<div class="freelancers-container freelancers-list-layout compact-list margin-top-35">
+    {% for freelancer in freelancers %}
+    <!--Freelancer -->
+    <div class="freelancer">
+
+        <!-- Overview -->
+        <div class="freelancer-overview">
+            <div class="freelancer-overview-inner">
+
+                <!-- Bookmark Icon -->
+                <span class="bookmark-icon"></span>
+
+                <!-- Avatar -->
+                <div class="freelancer-avatar">
+
+                    <a href="single-freelancer-profile.html"> <img src="{{ freelancer.image ? asset(vich_uploader_asset(freelancer,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></a>
+                </div>
+
+                <!-- Name -->
+                <div class="freelancer-name">
+                    <h4><a href="{{ path('freelancer_show',{"id":freelancer.id}) }}">{{ freelancer.nom ~" "~freelancer.prenom }}</a></h4>
+                    <span>{{ freelancer.domaine }}</span>
+                    <!-- Rating -->
+                    <div class="freelancer-rating">
+                        {% set sumratings = 0 %}
+                        {% set total = freelancer.notes|length %}
+                        {% for rating in freelancer.notes %}
+                            {% set sumratings = sumratings + rating.note %}
+                        {% endfor %}
+                        {% if total==0 %}
+                            {% set total=1 %}
+                        {% endif %}
+                        <div class="star-rating" data-rating="{{  sumratings / total }}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Details -->
+        <div class="freelancer-details">
+            <div class="freelancer-details-list">
+                <ul>
+                    <li>Domaine <strong><i class="icon-material-outline-location-on"></i> {{ freelancer.domaine }} </strong></li>
+                    <li>Numéro <strong>{{freelancer.numtel}}</strong></li>
+
+                </ul>
+            </div>
+            <a href="{{ path('freelancer_show' ,{"id":freelancer.id})}}" class="button button-sliding-icon ripple-effect">Voire Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
+        </div>
+    </div>
+    <!-- Freelancer / End -->
+
+
+    {% endfor %}
+</div>
+    <!-- Pagination -->
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class=" navigation" >
+
+                <!-- Pagination -->
+                <div class="pagination-container margin-top-30 margin-bottom-60">
+                    <nav class="pagination">
+                        {{ knp_pagination_render(freelancers, null, {}, {
+                            'position': 'centered',
+                            'size': 'small',
+                            'rounded': true,
+                        })  }}
+
+                    </nav>
+                </div>
+            </div>
+        </div>
+    <!-- Pagination / End -->
+
+</div>
+
+    </div>
+</div>
+    </div>
+    {% endblock %}

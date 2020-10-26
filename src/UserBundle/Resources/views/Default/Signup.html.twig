@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="margin-top-40"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-xl-5 offset-xl-3">
+
+            <div class="login-register-page">
+                <!-- Welcome Text -->
+                <div class="welcome-text">
+                    <h3 style="font-size: 26px;">crée votre compte !</h3>
+                    <span>Vous avez déjà un compte? <a href="{{ path('user_login') }}">S'identifier!</a></span>
+                </div>
+
+                <!-- Form -->
+                <form method="post" id="register-account-form" action="{{ path('signup') }}">
+
+                    <!-- Account Type -->
+                    <div class="account-type">
+                        <div>
+                            <input type="radio" name="account-type-radio" id="freelancer-radio" class="account-type-radio" value="freelancer" checked/>
+                            <label for="freelancer-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Freelancer</label>
+                        </div>
+
+                        <div>
+                            <input type="radio" name="account-type-radio" id="employer-radio" class="account-type-radio" value="client"/>
+                            <label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Employer</label>
+                        </div>
+                    </div>
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-feather-user"></i>
+                        <input type="text" class="input-text with-border" name="nom" id="emailaddress-register" placeholder="Nom" pattern="^[A-Za-z -]+$" required/>
+                    </div>
+                    <div class="input-with-icon-left">
+                        <i class="icon-feather-user"></i>
+                        <input type="text" class="input-text with-border" name="prenom" id="emailaddress-register" placeholder="Prenom" pattern="^[A-Za-z -]+$" required/>
+                    </div>
+                    <div class="input-with-icon-left">
+                        <i class="icon-line-awesome-mobile-phone"></i>
+                        <input type="text" class="input-text with-border" name="numtel" id="name-register" placeholder="Numéro Telephone" pattern="[0-9]{8}" required/>
+                    </div>
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-outline-date-range"></i>
+                        <input type="date" class="input-text with-border" name="date" id="date-register" placeholder="Date" required/>
+                    </div>
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-baseline-mail-outline"></i>
+                        <input type="text" class="input-text with-border" name="mail" id="emailaddress-register" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}" title="email invalide" placeholder="Email Address" required/>
+                    </div>
+                    <div class="input-with-icon-left">
+                        <i class="icon-line-awesome-user"></i>
+                        <input type="text" class="input-text with-border" name="username" id="username-register" placeholder="Username" required/>
+                    </div>
+
+                    <div class="input-with-icon-left" title="Should be at least 8 characters long" data-tippy-placement="bottom">
+                        <i class="icon-material-outline-lock"></i>
+                        <input type="password" class="input-text with-border" name="password" id="password-register" placeholder="Password" required/>
+                    </div>
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-outline-lock"></i>
+                        <input type="password" class="input-text with-border" name="passtwo" id="password-repeat-register" placeholder="Repeat Password" required/>
+                    </div>
+
+      {% if msg is defined %}
+                    <span>{{ msg }}</span>
+                    {% endif %}
+                    <!-- Button -->
+
+                    <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" >
+                        Register  </button>
+
+                </form>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+    <!-- Spacer -->
+    <div class="margin-top-70"></div>
+    <!-- Spacer / End-->
+
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+<!-- Page Content
+================================================== -->
+<div class="container">
+    <div class="row margin-top-15">
+        <div class="col-xl-3 col-lg-4">
+            <div class="sidebar-container">
+
+                <!-- Location -->
+                <div class="sidebar-widget">
+
+
+                </div>
+                <form action="{{ path("search_project") }}" method="post">
+                <!-- Category -->
+                <div class="sidebar-widget">
+                    <h3>Categorie</h3>
+                    <select name="categorie" class="selectpicker default" multiple data-selected-text-format="count"  title="Tout Categories" >
+                        {% for categorie in categorie %}
+                        <option value="{{ categorie.id }}">{{categorie.libelle}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Keywords -->
+                <div class="sidebar-widget">
+
+                    <h3>Mot Cle</h3>
+                    <div class="keywords-container">
+                        <div class="keyword-input-container">
+                            <input type="text" class="keyword-input" placeholder="e.g. task title" name="filter"/>
+
+                        </div>
+                        <div class="keywords-list"><!-- keywords go here --></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <!-- Budget -->
+                <div class="sidebar-widget">
+                    <h3>Prix Fixe</h3>
+                    <div class="margin-top-55"></div>
+
+                    <!-- Range Slider -->
+                    <input name="price" class="range-slider" type="text" value="" data-slider-currency="DT " data-slider-min="10" data-slider-max="5000" data-slider-step="20" data-slider-value="[10,5000]"/>
+                </div>
+
+
+                <button class="button button-sliding-icon ripple-effect">Chercher</button>
+
+                </form>
+
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-8 content-left-offset">
+
+            <h3 class="page-title">Liste des projet</h3>
+
+            <div class="tasks-list-container margin-top-35">
+            {% for projet in projets %}
+            <!-- Tasks Container -->
+
+
+                <!-- Task -->
+                <a href="{{ path("postulation_new",{"id":projet.id}) }}" class="task-listing">
+
+                    <!-- Job Listing Details -->
+                    <div class="task-listing-details">
+
+                        <!-- Details -->
+                        <div class="task-listing-description">
+                            <h3 class="task-listing-title">{{ projet.titre }}</h3>
+                            <ul class="task-icons">
+                                <li><i class="icon-material-outline-location-on"></i> {{projet.client.adress}}</li>
+                                <li><i class="icon-material-outline-access-time"></i> {% if projet.dateprojet %}{{ projet.dateprojet|date('Y-m-d') }}{% endif %}</li>
+                            </ul>
+                            <p class="task-listing-text">{{ projet.description }}</p>
+                            <div class="task-tags">
+                                <span>{{projet.categorie.libelle}}</span>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="task-listing-bid">
+                        <div class="task-listing-bid-inner">
+                            <div class="task-offers">
+                                <strong>{{projet.budget}} DT</strong>
+                                <span>Prix fixe</span>
+                            </div>
+                            <span href="{{ path('postulation_new',{"id":projet.id}) }}" class="button button-sliding-icon ripple-effect">Postuler<i class="icon-material-outline-arrow-right-alt"></i></span>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+                <!-- Pagination -->
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class=" navigation" >
+
+                        <!-- Pagination -->
+                        <div class="pagination-container margin-top-30 margin-bottom-60">
+                            <nav class="pagination">
+                                {{ knp_pagination_render(projets, null, {}, {
+                                    'position': 'centered',
+                                    'size': 'small',
+                                    'rounded': true,
+                                })  }}
+
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pagination / End -->
+
+            </div>
+            <!-- Tasks Container / End -->
+
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
